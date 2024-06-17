@@ -1,0 +1,12 @@
+[Unit]
+Description=Shipping Service
+
+[Service]
+User=roboshop
+Environment=CART_ENDPOINT=cart.app.aryadevops.online:80
+Environment=DB_HOST=mysql.aryadevops.online
+ExecStart=/bin/java -jar /app/shipping.jar
+SyslogIdentifier=shipping
+
+[Install]
+WantedBy=multi-user.target

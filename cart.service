@@ -1,0 +1,12 @@
+[Unit]
+Description = Cart Service
+[Service]
+User=roboshop
+Environment=REDIS_HOST=redis.aryadevops.online
+Environment=CATALOGUE_HOST=catalogue.app.aryadevops.online
+Environment=CATALOGUE_PORT=80
+ExecStart=/bin/node /app/server.js
+SyslogIdentifier=cart
+
+[Install]
+WantedBy=multi-user.target
