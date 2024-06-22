@@ -38,7 +38,7 @@ useradd roboshop &>>$LOGFILE
 mkdir /app &>>$LOGFILE
 #Validate $? "make APP Directory"
 
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
+curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>$LOGFILE
 Validate $? "Downloading Cart Artifact"
 
 cd /app &>>$LOGFILE
