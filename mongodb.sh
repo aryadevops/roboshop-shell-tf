@@ -4,45 +4,44 @@ USERID=$(id -u)
 SCRIPT_NAME=$0
 DATE=$(date +%F)
 LOGDIR=/tmp
-LOGFILE=/$LOGDIR/$SCRIPT_NAME-$DATE.log
+LOGFILE=$LOGDIR/$SCRIPT_NAME-$DATE.log
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-if [ $USERID -ne 0 ]
-    then 
+if [ $USERID -ne 0 ];
+then 
     echo -e "$R ERROR:: $N Please try with ROOT USER"
     exit 1
 fi    
 
 Validate(){
-    if [ $1 -ne 0 ]
-     then
+    if [ $1 -ne 0 ];
+    then
          echo -e " $2 ......$R Failure $N"
          Exit 1
-        else
+    else
          echo -e " $2 ...... $G Success $N"
     fi      
 }
 
-cp /home/centos/roboshop-shell-tf/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
-Validate $? "Mongo-repo-copied"
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+Validate $? "Copied MongoDB repo to yum.repos.d"
 
-yum install mongodb-org -y &>>$LOGFILE
-Validate $? "Mongodb"
+yum install mongodb-org -y &>> $LOGFILE
+Validate $? "Installation of Mongodb"
 
-systemctl enable mongod &>>$LOGFILE
-Validate $? "enabling mongoDB"
+systemctl enable mongod &>> $LOGFILE
+Validate $? "Enabling MongoDB"
 
-systemctl start mongod &>>$LOGFILE
-Validate $? "Starting mongoDB"
+systemctl start mongod &>> $LOGFILE
+Validate $? "Starting MongoDB"
 
-sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>$LOGFILE
-##sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGFILE
-Validate $? "Accepting public entry"
+sed -i 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf &>> $LOGFILE
+Validate $? "Edited MongoDB conf"
 
-systemctl restart mongod &>>$LOGFILE
-Validate $? "Restart mongoDB"
+systemctl restart mongod &>> $LOGFILE
+Validate $? "Restarting mongoDB"
 
 
