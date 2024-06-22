@@ -3,7 +3,7 @@
 USERID=$(id -u)
 SCRIPT_NAME=$0
 DATE=$(date +%F)
-LOGDIR=/home/centos/Roboshop
+LOGDIR=/tmp
 LOGFILE=$LOGDIR/$SCRIPT_NAME-$DATE.log
 R="\e[31m"
 G="\e[32m"
